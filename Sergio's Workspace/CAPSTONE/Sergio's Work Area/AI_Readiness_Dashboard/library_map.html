@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3cb7eb607db01075dbdeb91951f821e2 {
+                    position: relative;
+                    width: 100.0vw;
+                    height: 100.0vh;
+
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>/*
+ * Glyphicons Halflings -- the icon font used by folium's default Awesome Markers
+ * (Icon(prefix="glyphicon")). Extracted from Bootstrap 3's glyphicon rules only.
+ *
+ * folium previously loaded netdna's bootstrap-glyphicons.css, which despite its
+ * name ships a full Bootstrap-3 base stylesheet (normalize reset + global `body`
+ * rules) that leaked onto the host page (GH-1820). This file provides just the
+ * @font-face and .glyphicon/.glyphicon-* rules needed for the markers, with no
+ * page-wide side effects. Font files are served from jsDelivr.
+ */
+@font-face{font-family:'Glyphicons Halflings';src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot');src:url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.woff') format('woff'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.ttf') format('truetype'),url('https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing:antialiased;}
+.glyphicon-asterisk:before{content:"\2a";}
+.glyphicon-plus:before{content:"\2b";}
+.glyphicon-euro:before{content:"\20ac";}
+.glyphicon-minus:before{content:"\2212";}
+.glyphicon-cloud:before{content:"\2601";}
+.glyphicon-envelope:before{content:"\2709";}
+.glyphicon-pencil:before{content:"\270f";}
+.glyphicon-glass:before{content:"\e001";}
+.glyphicon-music:before{content:"\e002";}
+.glyphicon-search:before{content:"\e003";}
+.glyphicon-heart:before{content:"\e005";}
+.glyphicon-star:before{content:"\e006";}
+.glyphicon-star-empty:before{content:"\e007";}
+.glyphicon-user:before{content:"\e008";}
+.glyphicon-film:before{content:"\e009";}
+.glyphicon-th-large:before{content:"\e010";}
+.glyphicon-th:before{content:"\e011";}
+.glyphicon-th-list:before{content:"\e012";}
+.glyphicon-ok:before{content:"\e013";}
+.glyphicon-remove:before{content:"\e014";}
+.glyphicon-zoom-in:before{content:"\e015";}
+.glyphicon-zoom-out:before{content:"\e016";}
+.glyphicon-off:before{content:"\e017";}
+.glyphicon-signal:before{content:"\e018";}
+.glyphicon-cog:before{content:"\e019";}
+.glyphicon-trash:before{content:"\e020";}
+.glyphicon-home:before{content:"\e021";}
+.glyphicon-file:before{content:"\e022";}
+.glyphicon-time:before{content:"\e023";}
+.glyphicon-road:before{content:"\e024";}
+.glyphicon-download-alt:before{content:"\e025";}
+.glyphicon-download:before{content:"\e026";}
+.glyphicon-upload:before{content:"\e027";}
+.glyphicon-inbox:before{content:"\e028";}
+.glyphicon-play-circle:before{content:"\e029";}
+.glyphicon-repeat:before{content:"\e030";}
+.glyphicon-refresh:before{content:"\e031";}
+.glyphicon-list-alt:before{content:"\e032";}
+.glyphicon-flag:before{content:"\e034";}
+.glyphicon-headphones:before{content:"\e035";}
+.glyphicon-volume-off:before{content:"\e036";}
+.glyphicon-volume-down:before{content:"\e037";}
+.glyphicon-volume-up:before{content:"\e038";}
+.glyphicon-qrcode:before{content:"\e039";}
+.glyphicon-barcode:before{content:"\e040";}
+.glyphicon-tag:before{content:"\e041";}
+.glyphicon-tags:before{content:"\e042";}
+.glyphicon-book:before{content:"\e043";}
+.glyphicon-print:before{content:"\e045";}
+.glyphicon-font:before{content:"\e047";}
+.glyphicon-bold:before{content:"\e048";}
+.glyphicon-italic:before{content:"\e049";}
+.glyphicon-text-height:before{content:"\e050";}
+.glyphicon-text-width:before{content:"\e051";}
+.glyphicon-align-left:before{content:"\e052";}
+.glyphicon-align-center:before{content:"\e053";}
+.glyphicon-align-right:before{content:"\e054";}
+.glyphicon-align-justify:before{content:"\e055";}
+.glyphicon-list:before{content:"\e056";}
+.glyphicon-indent-left:before{content:"\e057";}
+.glyphicon-indent-right:before{content:"\e058";}
+.glyphicon-facetime-video:before{content:"\e059";}
+.glyphicon-picture:before{content:"\e060";}
+.glyphicon-map-marker:before{content:"\e062";}
+.glyphicon-adjust:before{content:"\e063";}
+.glyphicon-tint:before{content:"\e064";}
+.glyphicon-edit:before{content:"\e065";}
+.glyphicon-share:before{content:"\e066";}
+.glyphicon-check:before{content:"\e067";}
+.glyphicon-move:before{content:"\e068";}
+.glyphicon-step-backward:before{content:"\e069";}
+.glyphicon-fast-backward:before{content:"\e070";}
+.glyphicon-backward:before{content:"\e071";}
+.glyphicon-play:before{content:"\e072";}
+.glyphicon-pause:before{content:"\e073";}
+.glyphicon-stop:before{content:"\e074";}
+.glyphicon-forward:before{content:"\e075";}
+.glyphicon-fast-forward:before{content:"\e076";}
+.glyphicon-step-forward:before{content:"\e077";}
+.glyphicon-eject:before{content:"\e078";}
+.glyphicon-chevron-left:before{content:"\e079";}
+.glyphicon-chevron-right:before{content:"\e080";}
+.glyphicon-plus-sign:before{content:"\e081";}
+.glyphicon-minus-sign:before{content:"\e082";}
+.glyphicon-remove-sign:before{content:"\e083";}
+.glyphicon-ok-sign:before{content:"\e084";}
+.glyphicon-question-sign:before{content:"\e085";}
+.glyphicon-info-sign:before{content:"\e086";}
+.glyphicon-screenshot:before{content:"\e087";}
+.glyphicon-remove-circle:before{content:"\e088";}
+.glyphicon-ok-circle:before{content:"\e089";}
+.glyphicon-ban-circle:before{content:"\e090";}
+.glyphicon-arrow-left:before{content:"\e091";}
+.glyphicon-arrow-right:before{content:"\e092";}
+.glyphicon-arrow-up:before{content:"\e093";}
+.glyphicon-arrow-down:before{content:"\e094";}
+.glyphicon-share-alt:before{content:"\e095";}
+.glyphicon-resize-full:before{content:"\e096";}
+.glyphicon-resize-small:before{content:"\e097";}
+.glyphicon-exclamation-sign:before{content:"\e101";}
+.glyphicon-gift:before{content:"\e102";}
+.glyphicon-leaf:before{content:"\e103";}
+.glyphicon-eye-open:before{content:"\e105";}
+.glyphicon-eye-close:before{content:"\e106";}
+.glyphicon-warning-sign:before{content:"\e107";}
+.glyphicon-plane:before{content:"\e108";}
+.glyphicon-random:before{content:"\e110";}
+.glyphicon-comment:before{content:"\e111";}
+.glyphicon-magnet:before{content:"\e112";}
+.glyphicon-chevron-up:before{content:"\e113";}
+.glyphicon-chevron-down:before{content:"\e114";}
+.glyphicon-retweet:before{content:"\e115";}
+.glyphicon-shopping-cart:before{content:"\e116";}
+.glyphicon-folder-close:before{content:"\e117";}
+.glyphicon-folder-open:before{content:"\e118";}
+.glyphicon-resize-vertical:before{content:"\e119";}
+.glyphicon-resize-horizontal:before{content:"\e120";}
+.glyphicon-hdd:before{content:"\e121";}
+.glyphicon-bullhorn:before{content:"\e122";}
+.glyphicon-certificate:before{content:"\e124";}
+.glyphicon-thumbs-up:before{content:"\e125";}
+.glyphicon-thumbs-down:before{content:"\e126";}
+.glyphicon-hand-right:before{content:"\e127";}
+.glyphicon-hand-left:before{content:"\e128";}
+.glyphicon-hand-up:before{content:"\e129";}
+.glyphicon-hand-down:before{content:"\e130";}
+.glyphicon-circle-arrow-right:before{content:"\e131";}
+.glyphicon-circle-arrow-left:before{content:"\e132";}
+.glyphicon-circle-arrow-up:before{content:"\e133";}
+.glyphicon-circle-arrow-down:before{content:"\e134";}
+.glyphicon-globe:before{content:"\e135";}
+.glyphicon-tasks:before{content:"\e137";}
+.glyphicon-filter:before{content:"\e138";}
+.glyphicon-fullscreen:before{content:"\e140";}
+.glyphicon-dashboard:before{content:"\e141";}
+.glyphicon-heart-empty:before{content:"\e143";}
+.glyphicon-link:before{content:"\e144";}
+.glyphicon-phone:before{content:"\e145";}
+.glyphicon-usd:before{content:"\e148";}
+.glyphicon-gbp:before{content:"\e149";}
+.glyphicon-sort:before{content:"\e150";}
+.glyphicon-sort-by-alphabet:before{content:"\e151";}
+.glyphicon-sort-by-alphabet-alt:before{content:"\e152";}
+.glyphicon-sort-by-order:before{content:"\e153";}
+.glyphicon-sort-by-order-alt:before{content:"\e154";}
+.glyphicon-sort-by-attributes:before{content:"\e155";}
+.glyphicon-sort-by-attributes-alt:before{content:"\e156";}
+.glyphicon-unchecked:before{content:"\e157";}
+.glyphicon-expand:before{content:"\e158";}
+.glyphicon-collapse-down:before{content:"\e159";}
+.glyphicon-collapse-up:before{content:"\e160";}
+.glyphicon-log-in:before{content:"\e161";}
+.glyphicon-flash:before{content:"\e162";}
+.glyphicon-log-out:before{content:"\e163";}
+.glyphicon-new-window:before{content:"\e164";}
+.glyphicon-record:before{content:"\e165";}
+.glyphicon-save:before{content:"\e166";}
+.glyphicon-open:before{content:"\e167";}
+.glyphicon-saved:before{content:"\e168";}
+.glyphicon-import:before{content:"\e169";}
+.glyphicon-export:before{content:"\e170";}
+.glyphicon-send:before{content:"\e171";}
+.glyphicon-floppy-disk:before{content:"\e172";}
+.glyphicon-floppy-saved:before{content:"\e173";}
+.glyphicon-floppy-remove:before{content:"\e174";}
+.glyphicon-floppy-save:before{content:"\e175";}
+.glyphicon-floppy-open:before{content:"\e176";}
+.glyphicon-credit-card:before{content:"\e177";}
+.glyphicon-transfer:before{content:"\e178";}
+.glyphicon-cutlery:before{content:"\e179";}
+.glyphicon-header:before{content:"\e180";}
+.glyphicon-compressed:before{content:"\e181";}
+.glyphicon-earphone:before{content:"\e182";}
+.glyphicon-phone-alt:before{content:"\e183";}
+.glyphicon-tower:before{content:"\e184";}
+.glyphicon-stats:before{content:"\e185";}
+.glyphicon-sd-video:before{content:"\e186";}
+.glyphicon-hd-video:before{content:"\e187";}
+.glyphicon-subtitles:before{content:"\e188";}
+.glyphicon-sound-stereo:before{content:"\e189";}
+.glyphicon-sound-dolby:before{content:"\e190";}
+.glyphicon-sound-5-1:before{content:"\e191";}
+.glyphicon-sound-6-1:before{content:"\e192";}
+.glyphicon-sound-7-1:before{content:"\e193";}
+.glyphicon-copyright-mark:before{content:"\e194";}
+.glyphicon-registration-mark:before{content:"\e195";}
+.glyphicon-cloud-download:before{content:"\e197";}
+.glyphicon-cloud-upload:before{content:"\e198";}
+.glyphicon-tree-conifer:before{content:"\e199";}
+.glyphicon-tree-deciduous:before{content:"\e200";}
+.glyphicon-briefcase:before{content:"\1f4bc";}
+.glyphicon-calendar:before{content:"\1f4c5";}
+.glyphicon-pushpin:before{content:"\1f4cc";}
+.glyphicon-paperclip:before{content:"\1f4ce";}
+.glyphicon-camera:before{content:"\1f4f7";}
+.glyphicon-lock:before{content:"\1f512";}
+.glyphicon-bell:before{content:"\1f514";}
+.glyphicon-bookmark:before{content:"\1f516";}
+.glyphicon-fire:before{content:"\1f525";}
+.glyphicon-wrench:before{content:"\1f527";}
+</style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+    
+            
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_3cb7eb607db01075dbdeb91951f821e2" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3cb7eb607db01075dbdeb91951f821e2 = L.map(
+                "map_3cb7eb607db01075dbdeb91951f821e2",
+                {
+                    center: [30.55, -86.85],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_6f85ae02fa180dd9fb3a01667066e7d2 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_6f85ae02fa180dd9fb3a01667066e7d2.addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+        
+    
+            var feature_group_956a442e81b28c4b7725c0c59e8d2a54 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_649bc5c47fd5b8f7fefdecf719f40abe = L.marker(
+                [30.48802192, -87.21488196],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_26697f932e7bfbb56261531429aa6543 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1f4ae5cff464877ff3636958e88e6f24 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_73f5ccf5e7f4ede95d1cf0ead5b34e4c = $(`<div id="html_73f5ccf5e7f4ede95d1cf0ead5b34e4c" style="width: 100.0%; height: 100.0%;">         <b>LUCIA M. TRYON BRANCH</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 1200 LANGLEY AVENUE         </div>`)[0];
+                popup_1f4ae5cff464877ff3636958e88e6f24.setContent(html_73f5ccf5e7f4ede95d1cf0ead5b34e4c);
+            
+        
+
+        marker_649bc5c47fd5b8f7fefdecf719f40abe.bindPopup(popup_1f4ae5cff464877ff3636958e88e6f24)
+        ;
+
+        
+    
+    
+            marker_649bc5c47fd5b8f7fefdecf719f40abe.bindTooltip(
+                `<div>
+                     LUCIA M. TRYON BRANCH
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_649bc5c47fd5b8f7fefdecf719f40abe.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_649bc5c47fd5b8f7fefdecf719f40abe.setIcon(icon_26697f932e7bfbb56261531429aa6543);
+            
+    
+            var marker_ecb9fc48b3c15b081145c974318934cd = L.marker(
+                [30.41523356, -87.21883394],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_a41b8ebe360bd2e70308c78b0220e1ee = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_33eb2c1a530fa0e26524c80789c92c6b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_997630ffcc85d571d867127a18ce0861 = $(`<div id="html_997630ffcc85d571d867127a18ce0861" style="width: 100.0%; height: 100.0%;">         <b>WEST FLORIDA PUBLIC LIBRARY SYSTEM</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 239 NORTH SPRING STREET         </div>`)[0];
+                popup_33eb2c1a530fa0e26524c80789c92c6b.setContent(html_997630ffcc85d571d867127a18ce0861);
+            
+        
+
+        marker_ecb9fc48b3c15b081145c974318934cd.bindPopup(popup_33eb2c1a530fa0e26524c80789c92c6b)
+        ;
+
+        
+    
+    
+            marker_ecb9fc48b3c15b081145c974318934cd.bindTooltip(
+                `<div>
+                     WEST FLORIDA PUBLIC LIBRARY SYSTEM
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_ecb9fc48b3c15b081145c974318934cd.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_ecb9fc48b3c15b081145c974318934cd.setIcon(icon_a41b8ebe360bd2e70308c78b0220e1ee);
+            
+    
+            var marker_c6b4d9fc3cd0e516bb886b0c226d2073 = L.marker(
+                [30.32198912, -87.40317538],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_43a35b78c0c25b05a8acb966608be828 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_00baa0688d33a6e53b558671d90f3193 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1bbaf2a9a9d05102e3b0f5482d640343 = $(`<div id="html_1bbaf2a9a9d05102e3b0f5482d640343" style="width: 100.0%; height: 100.0%;">         <b>SOUTHWEST BRANCH LIBRARY</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 12248 GULF BEACH HIGHWAY         </div>`)[0];
+                popup_00baa0688d33a6e53b558671d90f3193.setContent(html_1bbaf2a9a9d05102e3b0f5482d640343);
+            
+        
+
+        marker_c6b4d9fc3cd0e516bb886b0c226d2073.bindPopup(popup_00baa0688d33a6e53b558671d90f3193)
+        ;
+
+        
+    
+    
+            marker_c6b4d9fc3cd0e516bb886b0c226d2073.bindTooltip(
+                `<div>
+                     SOUTHWEST BRANCH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_c6b4d9fc3cd0e516bb886b0c226d2073.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_c6b4d9fc3cd0e516bb886b0c226d2073.setIcon(icon_43a35b78c0c25b05a8acb966608be828);
+            
+    
+            var marker_86934e0227f5f021ab179e3230510571 = L.marker(
+                [30.97587593, -87.26215371],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_f4556306e613dc96ef3f267683393e7a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_769452c2be2a28d5443927f12305cab1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76d674351104959e3efbabc6c56d6134 = $(`<div id="html_76d674351104959e3efbabc6c56d6134" style="width: 100.0%; height: 100.0%;">         <b>CENTURY BRANCH LIBRARY</b><br>         County: ESCAMBIA<br>         City: CENTURY<br>         Address: 7991 NORTH CENTURY BOULEVARD         </div>`)[0];
+                popup_769452c2be2a28d5443927f12305cab1.setContent(html_76d674351104959e3efbabc6c56d6134);
+            
+        
+
+        marker_86934e0227f5f021ab179e3230510571.bindPopup(popup_769452c2be2a28d5443927f12305cab1)
+        ;
+
+        
+    
+    
+            marker_86934e0227f5f021ab179e3230510571.bindTooltip(
+                `<div>
+                     CENTURY BRANCH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_86934e0227f5f021ab179e3230510571.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_86934e0227f5f021ab179e3230510571.setIcon(icon_f4556306e613dc96ef3f267683393e7a);
+            
+    
+            var marker_feb3b1d2fad6880454bf2437496cf217 = L.marker(
+                [30.41407774, -87.23403938],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_66fbbbb614f5ec8f84f230f9e91a0a2e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3cf45785b4246ee2cfe1e14ec55eef44 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_975e347ef67a13e71d37118f3119e3dc = $(`<div id="html_975e347ef67a13e71d37118f3119e3dc" style="width: 100.0%; height: 100.0%;">         <b>WESTSIDE BRANCH LIBRARY</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 1301 WEST GREGORY STREET         </div>`)[0];
+                popup_3cf45785b4246ee2cfe1e14ec55eef44.setContent(html_975e347ef67a13e71d37118f3119e3dc);
+            
+        
+
+        marker_feb3b1d2fad6880454bf2437496cf217.bindPopup(popup_3cf45785b4246ee2cfe1e14ec55eef44)
+        ;
+
+        
+    
+    
+            marker_feb3b1d2fad6880454bf2437496cf217.bindTooltip(
+                `<div>
+                     WESTSIDE BRANCH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_feb3b1d2fad6880454bf2437496cf217.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_feb3b1d2fad6880454bf2437496cf217.setIcon(icon_66fbbbb614f5ec8f84f230f9e91a0a2e);
+            
+    
+            var marker_48d04f97c0303d16d61d31a3920a3460 = L.marker(
+                [30.71544848, -87.33760065],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_ee2a1dd0a7ab113ea709672f3c6eaa98 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9682aef540bed403a06397a2665bb9a2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_920fe069adf831968643f575d90d024e = $(`<div id="html_920fe069adf831968643f575d90d024e" style="width: 100.0%; height: 100.0%;">         <b>MOLINO BRANCH LIBRARY</b><br>         County: ESCAMBIA<br>         City: MOLINO<br>         Address: 6450-A HIGHWAY 95A         </div>`)[0];
+                popup_9682aef540bed403a06397a2665bb9a2.setContent(html_920fe069adf831968643f575d90d024e);
+            
+        
+
+        marker_48d04f97c0303d16d61d31a3920a3460.bindPopup(popup_9682aef540bed403a06397a2665bb9a2)
+        ;
+
+        
+    
+    
+            marker_48d04f97c0303d16d61d31a3920a3460.bindTooltip(
+                `<div>
+                     MOLINO BRANCH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_48d04f97c0303d16d61d31a3920a3460.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_48d04f97c0303d16d61d31a3920a3460.setIcon(icon_ee2a1dd0a7ab113ea709672f3c6eaa98);
+            
+    
+            var marker_bb78ccd814810485f3d6240c9d0215bb = L.marker(
+                [30.42323689, -87.2538299],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_f0138c217b4b71ea31114940a51b1d07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f6125cb319519e6576e5a7a26605ea3c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_198fde564cf2de29eec2acd7709cb5f3 = $(`<div id="html_198fde564cf2de29eec2acd7709cb5f3" style="width: 100.0%; height: 100.0%;">         <b>BROWNSVILLE COMMUNITY CENTER</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 3200 WEST DESOTO STREET         </div>`)[0];
+                popup_f6125cb319519e6576e5a7a26605ea3c.setContent(html_198fde564cf2de29eec2acd7709cb5f3);
+            
+        
+
+        marker_bb78ccd814810485f3d6240c9d0215bb.bindPopup(popup_f6125cb319519e6576e5a7a26605ea3c)
+        ;
+
+        
+    
+    
+            marker_bb78ccd814810485f3d6240c9d0215bb.bindTooltip(
+                `<div>
+                     BROWNSVILLE COMMUNITY CENTER
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_bb78ccd814810485f3d6240c9d0215bb.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_bb78ccd814810485f3d6240c9d0215bb.setIcon(icon_f0138c217b4b71ea31114940a51b1d07);
+            
+    
+            var marker_83ff79c81f9cde6d585a47cfcf2deace = L.marker(
+                [30.46964259, -87.30522924],
+                {
+}
+            ).addTo(feature_group_956a442e81b28c4b7725c0c59e8d2a54);
+        
+    
+            var icon_e4cd74f34fbbec9477c615c6ae4eaad8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d4d0c3e475a37c30a97ba66cfef7bab4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f472db628316c41ea400aec92a101b48 = $(`<div id="html_f472db628316c41ea400aec92a101b48" style="width: 100.0%; height: 100.0%;">         <b>BELLVIEW LIBRARY</b><br>         County: ESCAMBIA<br>         City: PENSACOLA<br>         Address: 6425 MOBILE HIGHWAY         </div>`)[0];
+                popup_d4d0c3e475a37c30a97ba66cfef7bab4.setContent(html_f472db628316c41ea400aec92a101b48);
+            
+        
+
+        marker_83ff79c81f9cde6d585a47cfcf2deace.bindPopup(popup_d4d0c3e475a37c30a97ba66cfef7bab4)
+        ;
+
+        
+    
+    
+            marker_83ff79c81f9cde6d585a47cfcf2deace.bindTooltip(
+                `<div>
+                     BELLVIEW LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_83ff79c81f9cde6d585a47cfcf2deace.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_83ff79c81f9cde6d585a47cfcf2deace.setIcon(icon_e4cd74f34fbbec9477c615c6ae4eaad8);
+            
+    
+            feature_group_956a442e81b28c4b7725c0c59e8d2a54.addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+        
+    
+            var feature_group_568b013ad972521aaa8a527fa7ba7429 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_07c4de9a3e3e518b0011e8c28cc6c65b = L.marker(
+                [30.35547642, -87.17164617],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_83f10a89bfc9afd5212a2269e17361a6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_85f215aacc3ab38f5ba6a26091af2943 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1c3cadd1f7d213f24eba21c34458c4db = $(`<div id="html_1c3cadd1f7d213f24eba21c34458c4db" style="width: 100.0%; height: 100.0%;">         <b>GULF BREEZE LIBRARY</b><br>         County: SANTA ROSA<br>         City: GULF BREEZE<br>         Address: 1060 SHORELINE DRIVE         </div>`)[0];
+                popup_85f215aacc3ab38f5ba6a26091af2943.setContent(html_1c3cadd1f7d213f24eba21c34458c4db);
+            
+        
+
+        marker_07c4de9a3e3e518b0011e8c28cc6c65b.bindPopup(popup_85f215aacc3ab38f5ba6a26091af2943)
+        ;
+
+        
+    
+    
+            marker_07c4de9a3e3e518b0011e8c28cc6c65b.bindTooltip(
+                `<div>
+                     GULF BREEZE LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_07c4de9a3e3e518b0011e8c28cc6c65b.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_07c4de9a3e3e518b0011e8c28cc6c65b.setIcon(icon_83f10a89bfc9afd5212a2269e17361a6);
+            
+    
+            var marker_e9f33c488d038c1b5b8843d2d0af114d = L.marker(
+                [30.95186618, -87.1598893],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_7ccb7c32afa0751ddda5553ac75146bc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_94cd51795fc5abce83020319a3322204 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_47680438d8532292a662db401400a095 = $(`<div id="html_47680438d8532292a662db401400a095" style="width: 100.0%; height: 100.0%;">         <b>JAY LIBRARY</b><br>         County: SANTA ROSA<br>         City: JAY<br>         Address: 5259 BOOKER LANE         </div>`)[0];
+                popup_94cd51795fc5abce83020319a3322204.setContent(html_47680438d8532292a662db401400a095);
+            
+        
+
+        marker_e9f33c488d038c1b5b8843d2d0af114d.bindPopup(popup_94cd51795fc5abce83020319a3322204)
+        ;
+
+        
+    
+    
+            marker_e9f33c488d038c1b5b8843d2d0af114d.bindTooltip(
+                `<div>
+                     JAY LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_e9f33c488d038c1b5b8843d2d0af114d.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_e9f33c488d038c1b5b8843d2d0af114d.setIcon(icon_7ccb7c32afa0751ddda5553ac75146bc);
+            
+    
+            var marker_8afa669b2c45b23a21ef4a3405100094 = L.marker(
+                [30.63553625, -87.03967286],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_63ca7b39a723e38f3e588e9d8dd884d0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a252fd3113a954d005a8a6b62442b13a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_427fd540a407340e61538f35870e63a4 = $(`<div id="html_427fd540a407340e61538f35870e63a4" style="width: 100.0%; height: 100.0%;">         <b>MILTON LIBRARY</b><br>         County: SANTA ROSA<br>         City: MILTON<br>         Address: 5541 ALABAMA STREET         </div>`)[0];
+                popup_a252fd3113a954d005a8a6b62442b13a.setContent(html_427fd540a407340e61538f35870e63a4);
+            
+        
+
+        marker_8afa669b2c45b23a21ef4a3405100094.bindPopup(popup_a252fd3113a954d005a8a6b62442b13a)
+        ;
+
+        
+    
+    
+            marker_8afa669b2c45b23a21ef4a3405100094.bindTooltip(
+                `<div>
+                     MILTON LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_8afa669b2c45b23a21ef4a3405100094.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_8afa669b2c45b23a21ef4a3405100094.setIcon(icon_63ca7b39a723e38f3e588e9d8dd884d0);
+            
+    
+            var marker_373c21a33539fc92452a3fabd20220da = L.marker(
+                [30.41307455, -86.86801902],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_030b920dc9cd41f7d6549bfd052d0700 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_48f9df635b99bbc4807dec487b0650ec = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b1b007c32e25d5761590be885814188 = $(`<div id="html_4b1b007c32e25d5761590be885814188" style="width: 100.0%; height: 100.0%;">         <b>NAVARRE LIBRARY</b><br>         County: SANTA ROSA<br>         City: NAVARRE<br>         Address: 8484 JAMES M. HARVELL ROAD         </div>`)[0];
+                popup_48f9df635b99bbc4807dec487b0650ec.setContent(html_4b1b007c32e25d5761590be885814188);
+            
+        
+
+        marker_373c21a33539fc92452a3fabd20220da.bindPopup(popup_48f9df635b99bbc4807dec487b0650ec)
+        ;
+
+        
+    
+    
+            marker_373c21a33539fc92452a3fabd20220da.bindTooltip(
+                `<div>
+                     NAVARRE LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_373c21a33539fc92452a3fabd20220da.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_373c21a33539fc92452a3fabd20220da.setIcon(icon_030b920dc9cd41f7d6549bfd052d0700);
+            
+    
+            var marker_5d52582f9182b733502c50250a0abc25 = L.marker(
+                [30.60994534, -87.15518185],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_9c1a649cc5fd2050b93e194b86e47924 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f16191f706996da9ff146475974ac5ed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c0d430f041095528eb6d5c7858d8b2f7 = $(`<div id="html_c0d430f041095528eb6d5c7858d8b2f7" style="width: 100.0%; height: 100.0%;">         <b>PACE LIBRARY</b><br>         County: SANTA ROSA<br>         City: PACE<br>         Address: 4750 PACE PATRIOT BOULEVARD         </div>`)[0];
+                popup_f16191f706996da9ff146475974ac5ed.setContent(html_c0d430f041095528eb6d5c7858d8b2f7);
+            
+        
+
+        marker_5d52582f9182b733502c50250a0abc25.bindPopup(popup_f16191f706996da9ff146475974ac5ed)
+        ;
+
+        
+    
+    
+            marker_5d52582f9182b733502c50250a0abc25.bindTooltip(
+                `<div>
+                     PACE LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_5d52582f9182b733502c50250a0abc25.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_5d52582f9182b733502c50250a0abc25.setIcon(icon_9c1a649cc5fd2050b93e194b86e47924);
+            
+    
+            var marker_65de89ebadceedec12cbc45039b44142 = L.marker(
+                [30.66341782, -87.05484016],
+                {
+}
+            ).addTo(feature_group_568b013ad972521aaa8a527fa7ba7429);
+        
+    
+            var icon_3912e26c14ed78a4bd301d813894a552 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_056019d2b0f60266164bb5600ed3f59b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d33230536ae48fe2d2d03977c370a47b = $(`<div id="html_d33230536ae48fe2d2d03977c370a47b" style="width: 100.0%; height: 100.0%;">         <b>GENEALOGY CENTER</b><br>         County: SANTA ROSA<br>         City: MILTON<br>         Address: 6275 DOGWOOD DRIVE         </div>`)[0];
+                popup_056019d2b0f60266164bb5600ed3f59b.setContent(html_d33230536ae48fe2d2d03977c370a47b);
+            
+        
+
+        marker_65de89ebadceedec12cbc45039b44142.bindPopup(popup_056019d2b0f60266164bb5600ed3f59b)
+        ;
+
+        
+    
+    
+            marker_65de89ebadceedec12cbc45039b44142.bindTooltip(
+                `<div>
+                     GENEALOGY CENTER
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_65de89ebadceedec12cbc45039b44142.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_65de89ebadceedec12cbc45039b44142.setIcon(icon_3912e26c14ed78a4bd301d813894a552);
+            
+    
+            feature_group_568b013ad972521aaa8a527fa7ba7429.addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+        
+    
+            var feature_group_5fd78397e0c9f4bd94f8316183c9dadc = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_06006f11de3149282112159406533b8c = L.marker(
+                [30.41356087, -86.66380309],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_aca926aa0fa2ff68454a57092b8b23be = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ac75bb0321fa4653c966c8fb6f227c4c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b60e7c299dd437be20ecf6a8c840ce0 = $(`<div id="html_4b60e7c299dd437be20ecf6a8c840ce0" style="width: 100.0%; height: 100.0%;">         <b>MARY ESTHER PUBLIC LIBRARY</b><br>         County: OKALOOSA<br>         City: MARY ESTHER<br>         Address: 100 WEST HOLLYWOOD BOULEVARD         </div>`)[0];
+                popup_ac75bb0321fa4653c966c8fb6f227c4c.setContent(html_4b60e7c299dd437be20ecf6a8c840ce0);
+            
+        
+
+        marker_06006f11de3149282112159406533b8c.bindPopup(popup_ac75bb0321fa4653c966c8fb6f227c4c)
+        ;
+
+        
+    
+    
+            marker_06006f11de3149282112159406533b8c.bindTooltip(
+                `<div>
+                     MARY ESTHER PUBLIC LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_06006f11de3149282112159406533b8c.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_06006f11de3149282112159406533b8c.setIcon(icon_aca926aa0fa2ff68454a57092b8b23be);
+            
+    
+            var marker_47a03e4021ef35e026c5961a7f955af7 = L.marker(
+                [30.5278881, -86.4701861],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_e593a0151114615c90ebafa9cea371cd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_26362fdef2e01de3414faeebcea2f106 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_466178fddcd568402549570bc5ec456c = $(`<div id="html_466178fddcd568402549570bc5ec456c" style="width: 100.0%; height: 100.0%;">         <b>NICEVILLE PUBLIC LIBRARY</b><br>         County: OKALOOSA<br>         City: NICEVILLE<br>         Address: 206 NORTH PARTIN DRIVE         </div>`)[0];
+                popup_26362fdef2e01de3414faeebcea2f106.setContent(html_466178fddcd568402549570bc5ec456c);
+            
+        
+
+        marker_47a03e4021ef35e026c5961a7f955af7.bindPopup(popup_26362fdef2e01de3414faeebcea2f106)
+        ;
+
+        
+    
+    
+            marker_47a03e4021ef35e026c5961a7f955af7.bindTooltip(
+                `<div>
+                     NICEVILLE PUBLIC LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_47a03e4021ef35e026c5961a7f955af7.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_47a03e4021ef35e026c5961a7f955af7.setIcon(icon_e593a0151114615c90ebafa9cea371cd);
+            
+    
+            var marker_f7eb55a2ca671f2efb5983373460eb89 = L.marker(
+                [30.79037658, -86.55448916],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_10ea0ab0060b157b0774503921b28612 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_484922469ce55256fe08a9fac18905bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_51503369f54fc1fc2436ed358c7f3439 = $(`<div id="html_51503369f54fc1fc2436ed358c7f3439" style="width: 100.0%; height: 100.0%;">         <b>ROBERT L.F. SIKES PUBLIC LIBRARY</b><br>         County: OKALOOSA<br>         City: CRESTVIEW<br>         Address: 1445 COMMERCE DRIVE         </div>`)[0];
+                popup_484922469ce55256fe08a9fac18905bb.setContent(html_51503369f54fc1fc2436ed358c7f3439);
+            
+        
+
+        marker_f7eb55a2ca671f2efb5983373460eb89.bindPopup(popup_484922469ce55256fe08a9fac18905bb)
+        ;
+
+        
+    
+    
+            marker_f7eb55a2ca671f2efb5983373460eb89.bindTooltip(
+                `<div>
+                     ROBERT L.F. SIKES PUBLIC LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f7eb55a2ca671f2efb5983373460eb89.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f7eb55a2ca671f2efb5983373460eb89.setIcon(icon_10ea0ab0060b157b0774503921b28612);
+            
+    
+            var marker_336857522377d071307a3a74f501188d = L.marker(
+                [30.39919848, -86.50820923],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_7e9584208c06742d345c8700c5d755e8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9f752c34c9400b5e85131bb37fdf0f34 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cb153aee561a6e41eeacb3f86b91393e = $(`<div id="html_cb153aee561a6e41eeacb3f86b91393e" style="width: 100.0%; height: 100.0%;">         <b>DESTIN LIBRARY</b><br>         County: OKALOOSA<br>         City: DESTIN<br>         Address: 150 SIBERT AVENUE         </div>`)[0];
+                popup_9f752c34c9400b5e85131bb37fdf0f34.setContent(html_cb153aee561a6e41eeacb3f86b91393e);
+            
+        
+
+        marker_336857522377d071307a3a74f501188d.bindPopup(popup_9f752c34c9400b5e85131bb37fdf0f34)
+        ;
+
+        
+    
+    
+            marker_336857522377d071307a3a74f501188d.bindTooltip(
+                `<div>
+                     DESTIN LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_336857522377d071307a3a74f501188d.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_336857522377d071307a3a74f501188d.setIcon(icon_7e9584208c06742d345c8700c5d755e8);
+            
+    
+            var marker_f044df006aded396cc5a1b90db94eec8 = L.marker(
+                [30.40370945, -86.60561365],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_f220afe55499efcee730503127c2f7bc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1f2148ed1e3d8111b18a266e41bf64e9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_25dd987437a90efbe30f4f1e5128cc78 = $(`<div id="html_25dd987437a90efbe30f4f1e5128cc78" style="width: 100.0%; height: 100.0%;">         <b>FORT WALTON BEACH LIBRARY</b><br>         County: OKALOOSA<br>         City: FORT WALTON BEACH<br>         Address: 185 MIRACLE STRIP PARKWAY SOUTHEAST         </div>`)[0];
+                popup_1f2148ed1e3d8111b18a266e41bf64e9.setContent(html_25dd987437a90efbe30f4f1e5128cc78);
+            
+        
+
+        marker_f044df006aded396cc5a1b90db94eec8.bindPopup(popup_1f2148ed1e3d8111b18a266e41bf64e9)
+        ;
+
+        
+    
+    
+            marker_f044df006aded396cc5a1b90db94eec8.bindTooltip(
+                `<div>
+                     FORT WALTON BEACH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_f044df006aded396cc5a1b90db94eec8.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_f044df006aded396cc5a1b90db94eec8.setIcon(icon_f220afe55499efcee730503127c2f7bc);
+            
+    
+            var marker_63e16993bddd7d7c6da1812fc84c51b0 = L.marker(
+                [30.50986286, -86.49957286],
+                {
+}
+            ).addTo(feature_group_5fd78397e0c9f4bd94f8316183c9dadc);
+        
+    
+            var icon_34770b003f234cc146ad0e3813ec0b9b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a6356b1f77ab5ea9534efdc35c7cf20b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_abb7f71e2e228224bf383ef8ec5771d0 = $(`<div id="html_abb7f71e2e228224bf383ef8ec5771d0" style="width: 100.0%; height: 100.0%;">         <b>VALPARAISO COMMUNITY LIBRARY</b><br>         County: OKALOOSA<br>         City: VALPARAISO<br>         Address: 459 VALPARAISO PARKWAY         </div>`)[0];
+                popup_a6356b1f77ab5ea9534efdc35c7cf20b.setContent(html_abb7f71e2e228224bf383ef8ec5771d0);
+            
+        
+
+        marker_63e16993bddd7d7c6da1812fc84c51b0.bindPopup(popup_a6356b1f77ab5ea9534efdc35c7cf20b)
+        ;
+
+        
+    
+    
+            marker_63e16993bddd7d7c6da1812fc84c51b0.bindTooltip(
+                `<div>
+                     VALPARAISO COMMUNITY LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_63e16993bddd7d7c6da1812fc84c51b0.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_63e16993bddd7d7c6da1812fc84c51b0.setIcon(icon_34770b003f234cc146ad0e3813ec0b9b);
+            
+    
+            feature_group_5fd78397e0c9f4bd94f8316183c9dadc.addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+        
+    
+            var feature_group_74c32259b6da5fc05180955e41c5b8da = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cfa67cebd5e5c42f84227702d05ff287 = L.marker(
+                [30.71836848, -86.11599727],
+                {
+}
+            ).addTo(feature_group_74c32259b6da5fc05180955e41c5b8da);
+        
+    
+            var icon_afdc3b6c5d98508e156d0ee48eeb6876 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c8a983704bcd91fdddfa4d1958485368 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1726f208d4b6672b8bb6d471ec3db687 = $(`<div id="html_1726f208d4b6672b8bb6d471ec3db687" style="width: 100.0%; height: 100.0%;">         <b>WALTON-DEFUNIAK LIBRARY</b><br>         County: WALTON<br>         City: DEFUNIAK SPRINGS<br>         Address: 3 CIRCLE DRIVE         </div>`)[0];
+                popup_c8a983704bcd91fdddfa4d1958485368.setContent(html_1726f208d4b6672b8bb6d471ec3db687);
+            
+        
+
+        marker_cfa67cebd5e5c42f84227702d05ff287.bindPopup(popup_c8a983704bcd91fdddfa4d1958485368)
+        ;
+
+        
+    
+    
+            marker_cfa67cebd5e5c42f84227702d05ff287.bindTooltip(
+                `<div>
+                     WALTON-DEFUNIAK LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_cfa67cebd5e5c42f84227702d05ff287.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_cfa67cebd5e5c42f84227702d05ff287.setIcon(icon_afdc3b6c5d98508e156d0ee48eeb6876);
+            
+    
+            var marker_15ecec206e1dfb626ee7b8a3a8382371 = L.marker(
+                [30.37567718, -86.18200685],
+                {
+}
+            ).addTo(feature_group_74c32259b6da5fc05180955e41c5b8da);
+        
+    
+            var icon_1fbf4da3dc26b29a8c445244da8834e3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_52b02288d36590f0e51f71f57c00e69c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f295ff064d26f5b5f5102265f51a13e9 = $(`<div id="html_f295ff064d26f5b5f5102265f51a13e9" style="width: 100.0%; height: 100.0%;">         <b>COASTAL BRANCH LIBRARY</b><br>         County: WALTON<br>         City: SANTA ROSA BEACH<br>         Address: 437 GREENWAY TRAIL         </div>`)[0];
+                popup_52b02288d36590f0e51f71f57c00e69c.setContent(html_f295ff064d26f5b5f5102265f51a13e9);
+            
+        
+
+        marker_15ecec206e1dfb626ee7b8a3a8382371.bindPopup(popup_52b02288d36590f0e51f71f57c00e69c)
+        ;
+
+        
+    
+    
+            marker_15ecec206e1dfb626ee7b8a3a8382371.bindTooltip(
+                `<div>
+                     COASTAL BRANCH LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_15ecec206e1dfb626ee7b8a3a8382371.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_15ecec206e1dfb626ee7b8a3a8382371.setIcon(icon_1fbf4da3dc26b29a8c445244da8834e3);
+            
+    
+            var marker_ec0cb11f69d1c4d726f7187aeaeed64f = L.marker(
+                [30.498663, -86.13742058],
+                {
+}
+            ).addTo(feature_group_74c32259b6da5fc05180955e41c5b8da);
+        
+    
+            var icon_526338ebd4622d0e472b5f417227f696 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ced34eabafaa203ca66e53afdbeabe71 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6552b1e7993c962f6d4789fc008cd731 = $(`<div id="html_6552b1e7993c962f6d4789fc008cd731" style="width: 100.0%; height: 100.0%;">         <b>FREEPORT PUBLIC LIBRARY</b><br>         County: WALTON<br>         City: FREEPORT<br>         Address: 76 HIGHWAY 20 WEST         </div>`)[0];
+                popup_ced34eabafaa203ca66e53afdbeabe71.setContent(html_6552b1e7993c962f6d4789fc008cd731);
+            
+        
+
+        marker_ec0cb11f69d1c4d726f7187aeaeed64f.bindPopup(popup_ced34eabafaa203ca66e53afdbeabe71)
+        ;
+
+        
+    
+    
+            marker_ec0cb11f69d1c4d726f7187aeaeed64f.bindTooltip(
+                `<div>
+                     FREEPORT PUBLIC LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_ec0cb11f69d1c4d726f7187aeaeed64f.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_ec0cb11f69d1c4d726f7187aeaeed64f.setIcon(icon_526338ebd4622d0e472b5f417227f696);
+            
+    
+            var marker_ab2593876b8e53adf688d9cb21fe7a36 = L.marker(
+                [30.71836848, -86.11599727],
+                {
+}
+            ).addTo(feature_group_74c32259b6da5fc05180955e41c5b8da);
+        
+    
+            var icon_c5dfec8c5bcd4b94d690efdd94ca76a4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_abe8906d038f7afce742714f73e11a1a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ba447ffe662ea59535657bded77c7806 = $(`<div id="html_ba447ffe662ea59535657bded77c7806" style="width: 100.0%; height: 100.0%;">         <b>CHOCTAWHATCHEE CHARIOT</b><br>         County: WALTON<br>         City: DEFUNIAK SPRINGS<br>         Address: 3 CIRCLE DRIVE         </div>`)[0];
+                popup_abe8906d038f7afce742714f73e11a1a.setContent(html_ba447ffe662ea59535657bded77c7806);
+            
+        
+
+        marker_ab2593876b8e53adf688d9cb21fe7a36.bindPopup(popup_abe8906d038f7afce742714f73e11a1a)
+        ;
+
+        
+    
+    
+            marker_ab2593876b8e53adf688d9cb21fe7a36.bindTooltip(
+                `<div>
+                     CHOCTAWHATCHEE CHARIOT
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_ab2593876b8e53adf688d9cb21fe7a36.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_ab2593876b8e53adf688d9cb21fe7a36.setIcon(icon_c5dfec8c5bcd4b94d690efdd94ca76a4);
+            
+    
+            var marker_821c50be1d07b937e41cb3a32ff4f815 = L.marker(
+                [30.9644007, -86.3372466],
+                {
+}
+            ).addTo(feature_group_74c32259b6da5fc05180955e41c5b8da);
+        
+    
+            var icon_7dec33594918fb0fdcef93d585be30bb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "book",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7d14ff5c3252d5a5dbaf88981487d179 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76cedf76ee08ebc7e74bca5930a3b30b = $(`<div id="html_76cedf76ee08ebc7e74bca5930a3b30b" style="width: 100.0%; height: 100.0%;">         <b>GLADYS N. MILTON MEMORIAL LIBRARY</b><br>         County: WALTON<br>         City: FLOWERSVIEW<br>         Address: 261 FLOWERSVIEW BOULEVARD         </div>`)[0];
+                popup_7d14ff5c3252d5a5dbaf88981487d179.setContent(html_76cedf76ee08ebc7e74bca5930a3b30b);
+            
+        
+
+        marker_821c50be1d07b937e41cb3a32ff4f815.bindPopup(popup_7d14ff5c3252d5a5dbaf88981487d179)
+        ;
+
+        
+    
+    
+            marker_821c50be1d07b937e41cb3a32ff4f815.bindTooltip(
+                `<div>
+                     GLADYS N. MILTON MEMORIAL LIBRARY
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                {
+                    const element = marker_821c50be1d07b937e41cb3a32ff4f815.getElement();
+                    if (element) {
+                        element.style.width = "";
+                        element.style.height = "";
+                        element.style.marginLeft = "";
+                        element.style.marginTop = "";
+                    }
+                }
+                marker_821c50be1d07b937e41cb3a32ff4f815.setIcon(icon_7dec33594918fb0fdcef93d585be30bb);
+            
+    
+            feature_group_74c32259b6da5fc05180955e41c5b8da.addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+        
+    
+            var layer_control_6ec82768a0878b257d2b0f969cf6bd7a_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_6f85ae02fa180dd9fb3a01667066e7d2,
+                },
+                overlays :  {
+                    "ESCAMBIA" : feature_group_956a442e81b28c4b7725c0c59e8d2a54,
+                    "SANTA ROSA" : feature_group_568b013ad972521aaa8a527fa7ba7429,
+                    "OKALOOSA" : feature_group_5fd78397e0c9f4bd94f8316183c9dadc,
+                    "WALTON" : feature_group_74c32259b6da5fc05180955e41c5b8da,
+                },
+            };
+            let layer_control_6ec82768a0878b257d2b0f969cf6bd7a = L.control.layers(
+                layer_control_6ec82768a0878b257d2b0f969cf6bd7a_layers.base_layers,
+                layer_control_6ec82768a0878b257d2b0f969cf6bd7a_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_3cb7eb607db01075dbdeb91951f821e2);
+
+        
+</script>
+</html>
